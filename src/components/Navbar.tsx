@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Volume2, VolumeX, Menu, X, Users, Compass, Server, Image as ImageIcon, BookOpen } from 'lucide-react';
+import { Volume2, VolumeX, Menu, X, Users, Compass, Server, BookOpen } from 'lucide-react';
 import { sounds } from '../utils/audio';
+import { ThemeToggle } from './ThemeToggle';
 
 interface NavbarProps {
   onOpenJoin: () => void;
@@ -33,7 +34,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenJoin, serverOnline = true 
     { label: '状态雷达', href: '#server-radar', icon: Server },
     { label: '社群分部', href: '#community', icon: Compass },
     { label: '特色玩法', href: '#servers', icon: BookOpen },
-    // { label: '校园复刻', href: '#gallery', icon: ImageIcon },
     { label: '入坑指南', href: '#guide', icon: Users },
   ];
 
@@ -41,7 +41,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenJoin, serverOnline = true 
     <nav
       className={`fixed top-0 inset-x-0 z-40 transition-all duration-300 ${
         scrolled
-          ? 'bg-[#0d1017]/90 backdrop-blur-md border-b border-slate-800 shadow-xl py-3'
+          ? 'bg-white/90 dark:bg-[#0d1017]/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-md py-3'
           : 'bg-transparent py-4'
       }`}
     >
@@ -61,14 +61,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenJoin, serverOnline = true 
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-pixel text-xs sm:text-sm text-cyan-400 font-bold tracking-wider">
+              <span className="font-pixel text-xs sm:text-sm text-cyan-600 dark:text-cyan-400 font-bold tracking-wider">
                 SZUT-MC
               </span>
-              <span className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono bg-cyan-950/80 text-cyan-300 border border-cyan-800">
+              <span className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono bg-cyan-100 dark:bg-cyan-950/80 text-cyan-700 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-800">
                 苏工院
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 font-sans tracking-tight">
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 font-sans tracking-tight">
               苏州工学院 MC 交流组织
             </p>
           </div>
@@ -81,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenJoin, serverOnline = true 
               key={link.href}
               href={link.href}
               onClick={() => sounds.playClick()}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-slate-300 hover:text-cyan-400 hover:bg-slate-800/60 transition-all font-sans font-medium"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all font-sans font-medium"
             >
               <link.icon className="w-3.5 h-3.5 opacity-70" />
               <span>{link.label}</span>
@@ -90,30 +90,33 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenJoin, serverOnline = true 
         </div>
 
         {/* Action Controls */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-2 sm:gap-2.5">
+          {/* Theme Switcher */}
+          <ThemeToggle />
+
           {/* Sound Toggle */}
           <button
             onClick={handleToggleSound}
             title={isMuted ? '开启原版游戏音效' : '静音音效'}
-            className="p-2 border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors"
+            className="p-2 border border-slate-300 dark:border-slate-700 bg-white/90 dark:bg-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors shadow-sm"
           >
             {isMuted ? (
-              <VolumeX className="w-4 h-4 text-rose-400" />
+              <VolumeX className="w-4 h-4 text-rose-500" />
             ) : (
-              <Volume2 className="w-4 h-4 text-cyan-400 animate-pulse" />
+              <Volume2 className="w-4 h-4 text-cyan-600 dark:text-cyan-400 animate-pulse" />
             )}
           </button>
 
           {/* Quick Server Status Pill */}
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 border border-slate-800 bg-[#161b26] text-xs font-mono">
+          <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 border border-slate-300 dark:border-slate-800 bg-slate-100/90 dark:bg-[#161b26] text-xs font-mono">
             <span
               className={`w-2 h-2 rounded-none inline-block ${
                 serverOnline
-                  ? 'bg-emerald-400 shadow-[0_0_8px_#10b981] animate-pulse'
+                  ? 'bg-emerald-500 dark:bg-emerald-400 shadow-[0_0_8px_#10b981] animate-pulse'
                   : 'bg-rose-500'
               }`}
             />
-            <span className="text-slate-300 text-[11px]">
+            <span className="text-slate-700 dark:text-slate-300 text-[11px]">
               {serverOnline ? '服务器运行中' : '服务器离线'}
             </span>
           </div>
@@ -136,7 +139,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenJoin, serverOnline = true 
               sounds.playClick();
               setMobileMenuOpen(!mobileMenuOpen);
             }}
-            className="md:hidden p-2 border border-slate-700 bg-slate-800 text-slate-300"
+            className="md:hidden p-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300"
           >
             {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
@@ -145,7 +148,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenJoin, serverOnline = true 
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-slate-800 bg-[#0d1017] px-4 pt-2 pb-4 space-y-2 mt-2">
+        <div className="md:hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-[#0d1017]/95 backdrop-blur-md px-4 pt-2 pb-4 space-y-2 mt-2 shadow-xl">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -154,15 +157,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenJoin, serverOnline = true 
                 sounds.playClick();
                 setMobileMenuOpen(false);
               }}
-              className="flex items-center gap-2 px-3 py-2 text-sm text-slate-300 hover:text-cyan-400 hover:bg-slate-800"
+              className="flex items-center gap-2 px-3 py-2 text-sm text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800"
             >
-              <link.icon className="w-4 h-4 text-cyan-400" />
+              <link.icon className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
               <span>{link.label}</span>
             </a>
           ))}
-          <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400 px-3">
+          <div className="pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 px-3">
             <span>服务器: nop.mc6.cn:33735</span>
-            <span className="text-emerald-400 font-mono">Fabric 26.3</span>
+            <span className="text-emerald-600 dark:text-emerald-400 font-mono">Fabric 26.3</span>
           </div>
         </div>
       )}

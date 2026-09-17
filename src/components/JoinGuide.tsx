@@ -76,14 +76,14 @@ export const JoinGuide: React.FC<JoinGuideProps> = ({ onOpenJoin, serverAddress 
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-900 border border-slate-700 text-xs font-mono text-cyan-400 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/80 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-mono text-cyan-700 dark:text-cyan-400 mb-3 shadow-sm">
             <CheckCircle2 className="w-3.5 h-3.5" />
             <span>ONBOARDING GUIDE</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-bold text-white font-sans">
+          <h2 className="text-2xl sm:text-4xl font-bold text-slate-900 dark:text-white font-sans">
             新玩家入坑与白名单指南
           </h2>
-          <p className="text-slate-400 text-sm mt-2">
+          <p className="text-slate-600 dark:text-slate-400 text-sm mt-2">
             只需简单四步，即可解锁苏工院 Minecraft 校园世界的完整权限
           </p>
         </div>
@@ -95,29 +95,29 @@ export const JoinGuide: React.FC<JoinGuideProps> = ({ onOpenJoin, serverAddress 
             return (
               <div
                 key={idx}
-                className="bg-[#121622] border-2 border-slate-800 p-6 mc-border relative flex flex-col justify-between group hover:border-cyan-500/60 transition-colors"
+                className="bg-white dark:bg-[#121622] border-2 border-slate-200 dark:border-slate-800 p-6 mc-border relative flex flex-col justify-between group hover:border-cyan-500/60 transition-colors shadow-md"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="font-pixel text-2xl text-cyan-400 opacity-80 group-hover:opacity-100">
+                    <span className="font-pixel text-2xl text-cyan-600 dark:text-cyan-400 opacity-80 group-hover:opacity-100">
                       {step.num}
                     </span>
-                    <div className="p-2.5 bg-slate-900 border border-slate-700 text-cyan-400">
+                    <div className="p-2.5 bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-cyan-700 dark:text-cyan-400">
                       <Icon className="w-5 h-5" />
                     </div>
                   </div>
 
-                  <h3 className="font-bold text-base text-white mb-2 font-sans">
+                  <h3 className="font-bold text-base text-slate-900 dark:text-white mb-2 font-sans">
                     {step.title}
                   </h3>
 
-                  <p className="text-xs text-slate-400 leading-relaxed">
+                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
                     {step.desc}
                   </p>
                 </div>
 
                 {step.actionText && (
-                  <div className="mt-6 pt-4 border-t border-slate-800">
+                  <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800">
                     <button
                       onClick={() => {
                         sounds.playClick();
@@ -138,8 +138,8 @@ export const JoinGuide: React.FC<JoinGuideProps> = ({ onOpenJoin, serverAddress 
         {/* FAQ Section */}
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center gap-2 mb-6 justify-center">
-            <HelpCircle className="w-5 h-5 text-amber-400" />
-            <h3 className="text-xl font-bold text-white font-sans">
+            <HelpCircle className="w-5 h-5 text-amber-500" />
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white font-sans">
               常见问题解答 (FAQ)
             </h3>
           </div>
@@ -150,24 +150,24 @@ export const JoinGuide: React.FC<JoinGuideProps> = ({ onOpenJoin, serverAddress 
               return (
                 <div
                   key={idx}
-                  className="bg-[#121622] border border-slate-800 mc-border overflow-hidden"
+                  className="bg-white dark:bg-[#121622] border border-slate-200 dark:border-slate-800 mc-border overflow-hidden shadow-sm"
                 >
                   <button
                     onClick={() => toggleFaq(idx)}
-                    className="w-full text-left px-5 py-4 flex items-center justify-between gap-4 hover:bg-slate-800/40 transition-colors"
+                    className="w-full text-left px-5 py-4 flex items-center justify-between gap-4 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors"
                   >
-                    <span className="text-sm font-medium text-slate-200 font-sans">
+                    <span className="text-sm font-medium text-slate-800 dark:text-slate-200 font-sans">
                       {faq.q}
                     </span>
                     {isOpen ? (
-                      <ChevronUp className="w-4 h-4 text-cyan-400 shrink-0" />
+                      <ChevronUp className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0" />
                     ) : (
                       <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
                     )}
                   </button>
 
                   {isOpen && (
-                    <div className="px-5 pb-4 pt-1 text-xs text-slate-400 font-sans leading-relaxed border-t border-slate-800/60 bg-black/20">
+                    <div className="px-5 pb-4 pt-1 text-xs text-slate-600 dark:text-slate-400 font-sans leading-relaxed border-t border-slate-200 dark:border-slate-800/60 bg-slate-50/60 dark:bg-black/20">
                       {faq.a}
                     </div>
                   )}
@@ -177,8 +177,8 @@ export const JoinGuide: React.FC<JoinGuideProps> = ({ onOpenJoin, serverAddress 
           </div>
 
           {/* Quick Contact CTA */}
-          <div className="mt-10 text-center p-6 bg-slate-900/60 border border-slate-800 mc-border">
-            <p className="text-xs text-slate-300 mb-3">
+          <div className="mt-10 text-center p-6 bg-white dark:bg-slate-900/60 border border-slate-300 dark:border-slate-800 mc-border shadow-md">
+            <p className="text-xs text-slate-600 dark:text-slate-300 mb-3">
               还有其他疑问或遇到进服问题？欢迎直接在交流群里向学长学姐求助！
             </p>
             <button

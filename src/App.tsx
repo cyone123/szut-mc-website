@@ -1,22 +1,23 @@
 import { useState } from 'react';
+import { ThemeProvider } from './context/ThemeContext';
 import { ParticleCanvas } from './components/ParticleCanvas';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { ServerRadar } from './components/ServerRadar';
 import { CommunityIntro } from './components/CommunityIntro';
 import { ServerMatrix } from './components/ServerMatrix';
-import { CampusGallery } from './components/CampusGallery';
+// import { CampusGallery } from './components/CampusGallery';
 import { JoinGuide } from './components/JoinGuide';
 import { Footer } from './components/Footer';
 import { JoinModal } from './components/JoinModal';
 import { SERVER_CONFIG } from './services/serverStatus';
 
-export function App() {
+export function AppContent() {
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
   const [serverOnline, setServerOnline] = useState(true);
 
   return (
-    <div className="relative min-h-screen bg-[#0a0d13] text-slate-100 selection:bg-cyan-500 selection:text-black overflow-x-hidden">
+    <div className="relative min-h-screen bg-slate-100 dark:bg-[#0a0d13] text-slate-800 dark:text-slate-100 selection:bg-cyan-500 selection:text-black transition-colors duration-200 overflow-x-hidden">
       {/* Background Pixel Grid & Particle Ambient Effects */}
       <div className="fixed inset-0 bg-grid-pattern pointer-events-none opacity-40 z-0" />
       <ParticleCanvas />
@@ -75,6 +76,14 @@ export function App() {
         onClose={() => setIsJoinModalOpen(false)}
       />
     </div>
+  );
+}
+
+export function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 

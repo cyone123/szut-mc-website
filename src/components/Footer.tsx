@@ -13,10 +13,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenJoin, serverAddress }) => 
   };
 
   return (
-    <footer className="bg-[#090b10] border-t-2 border-slate-800 text-slate-400 py-12 relative z-10">
+    <footer className="bg-slate-100 dark:bg-[#090b10] border-t-2 border-slate-300 dark:border-slate-800 text-slate-600 dark:text-slate-400 py-12 relative z-10 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-slate-800/80">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-slate-200 dark:border-slate-800/80">
           
           {/* Brand Col */}
           <div className="md:col-span-6 space-y-4">
@@ -29,25 +29,25 @@ export const Footer: React.FC<FooterProps> = ({ onOpenJoin, serverAddress }) => 
               <img
                 src="/szut-logo.png"
                 alt="SZUT School Badge"
-                className="w-10 h-10 rounded-full bg-white p-0.5 border border-slate-600"
+                className="w-10 h-10 rounded-full bg-white p-0.5 border border-slate-300 dark:border-slate-600 shadow-sm"
               />
               <div>
-                <div className="font-pixel text-sm text-cyan-400 font-bold">
+                <div className="font-pixel text-sm text-cyan-600 dark:text-cyan-400 font-bold">
                   SZUT-MC
                 </div>
-                <div className="text-xs text-slate-300 font-sans">
+                <div className="text-xs text-slate-700 dark:text-slate-300 font-sans">
                   苏州工学院 Minecraft 交流组织
                 </div>
               </div>
             </div>
 
-            <p className="text-xs text-slate-400 max-w-md leading-relaxed font-sans">
+            <p className="text-xs text-slate-600 dark:text-slate-400 max-w-md leading-relaxed font-sans">
               由苏州工学院在校学生创立并维护的 Minecraft 爱好者家园。汇聚建筑、红石生电、纯净生存与校园复刻爱好者，致力于用代码与方块留下大学独一无二的印记。
             </p>
 
-            <div className="flex items-center gap-3 text-xs font-mono text-slate-400">
-              <span className="flex items-center gap-1 text-emerald-400">
-                <span className="w-2 h-2 bg-emerald-400 rounded-none inline-block"></span>
+            <div className="flex items-center gap-3 text-xs font-mono text-slate-500 dark:text-slate-400">
+              <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
+                <span className="w-2 h-2 bg-emerald-500 rounded-none inline-block"></span>
                 专线服务器: {serverAddress}
               </span>
             </div>
@@ -55,30 +55,25 @@ export const Footer: React.FC<FooterProps> = ({ onOpenJoin, serverAddress }) => 
 
           {/* Links Col 1 */}
           <div className="md:col-span-3 space-y-3">
-            <h4 className="font-pixel text-xs text-slate-200">快速直达</h4>
+            <h4 className="font-pixel text-xs text-slate-800 dark:text-slate-200">快速直达</h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="#server-radar" onClick={() => sounds.playClick()} className="hover:text-cyan-400 transition-colors">
+                <a href="#server-radar" onClick={() => sounds.playClick()} className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
                   服务器实时雷达
                 </a>
               </li>
               <li>
-                <a href="#community" onClick={() => sounds.playClick()} className="hover:text-cyan-400 transition-colors">
+                <a href="#community" onClick={() => sounds.playClick()} className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
                   社群与四大分部
                 </a>
               </li>
               <li>
-                <a href="#servers" onClick={() => sounds.playClick()} className="hover:text-cyan-400 transition-colors">
+                <a href="#servers" onClick={() => sounds.playClick()} className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
                   多服玩法矩阵
                 </a>
               </li>
               <li>
-                <a href="#gallery" onClick={() => sounds.playClick()} className="hover:text-cyan-400 transition-colors">
-                  校园建筑光影图鉴
-                </a>
-              </li>
-              <li>
-                <a href="#guide" onClick={() => sounds.playClick()} className="hover:text-cyan-400 transition-colors">
+                <a href="#guide" onClick={() => sounds.playClick()} className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
                   新玩家入坑指南 & FAQ
                 </a>
               </li>
@@ -87,11 +82,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenJoin, serverAddress }) => 
 
           {/* Links Col 2 */}
           <div className="md:col-span-3 space-y-3">
-            <h4 className="font-pixel text-xs text-slate-200">加入社群</h4>
-            <div className="p-3 bg-[#111622] border border-slate-800 text-xs space-y-2">
-              <div className="text-slate-300 flex items-center justify-between">
+            <h4 className="font-pixel text-xs text-slate-800 dark:text-slate-200">加入社群</h4>
+            <div className="p-3 bg-white dark:bg-[#111622] border border-slate-300 dark:border-slate-800 text-xs space-y-2 shadow-sm">
+              <div className="text-slate-700 dark:text-slate-300 flex items-center justify-between">
                 <span>QQ 迎新总群:</span>
-                <span className="font-code font-bold text-cyan-300">913295535</span>
+                <span className="font-code font-bold text-cyan-700 dark:text-cyan-300">913295535</span>
               </div>
               <button
                 onClick={() => {
@@ -116,14 +111,14 @@ export const Footer: React.FC<FooterProps> = ({ onOpenJoin, serverAddress }) => 
             <div>
               Copyright © 2026 苏州工学院 Minecraft 交流组织 (SZUT-MC). All Rights Reserved.
             </div>
-            <div className="text-slate-600">
+            <div className="text-slate-500 dark:text-slate-600">
               Minecraft 是 Mojang AB / Microsoft 的注册商标。本项目由学生社团独立运营，非 Mojang 官方关联产品。
             </div>
           </div>
 
           <button
             onClick={scrollToTop}
-            className="mc-button text-xs py-2 px-3 flex items-center gap-1.5 bg-[#171c26]"
+            className="mc-button text-xs py-2 px-3 flex items-center gap-1.5"
             title="回到顶部"
           >
             <ArrowUp className="w-3.5 h-3.5" />
