@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --mc-dark-bg: #0d1017;
+    --mc-deepslate: #161b22;
+    --mc-obsidian: #0b0d13;
+    --mc-diamond: #55ffff;
+    --mc-emerald: #55ff55;
+    --mc-gold: #ffaa00;
+    --mc-redstone: #ff5555;
+  }
+
+  body {
+    background-color: #0b0e14;
+    color: #e2e8f0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  }
+}
+
+/* Custom Minecraft Fonts */
+.font-pixel {
+  font-family: 'Silkscreen', 'Press Start 2P', monospace, sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.font-code {
+  font-family: 'JetBrains Mono', monospace, Consolas, Courier, monospace;
+}
+
+/* Pixel Crisp Borders */
+.mc-border {
+  border: 2px solid #334155;
+  box-shadow: 
+    inset 2px 2px 0px rgba(255, 255, 255, 0.15),
+    inset -2px -2px 0px rgba(0, 0, 0, 0.5),
+    0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.mc-border-emerald {
+  border: 2px solid #10b981;
+  box-shadow: 
+    inset 2px 2px 0px rgba(110, 231, 183, 0.4),
+    inset -2px -2px 0px rgba(6, 78, 59, 0.8),
+    0 0 15px rgba(16, 185, 129, 0.25);
+}
+
+.mc-border-diamond {
+  border: 2px solid #06b6d4;
+  box-shadow: 
+    inset 2px 2px 0px rgba(165, 243, 252, 0.5),
+    inset -2px -2px 0px rgba(22, 78, 99, 0.8),
+    0 0 15px rgba(6, 182, 212, 0.3);
+}
+
+.mc-border-gold {
+  border: 2px solid #f59e0b;
+  box-shadow: 
+    inset 2px 2px 0px rgba(253, 230, 138, 0.5),
+    inset -2px -2px 0px rgba(120, 53, 15, 0.8),
+    0 0 15px rgba(245, 158, 11, 0.25);
+}
+
+/* Authentic Minecraft Button */
+.mc-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Silkscreen', 'PingFang SC', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  user-select: none;
+  cursor: pointer;
+  padding: 0.75rem 1.5rem;
+  background-color: #3b4252;
+  color: #eceff4;
+  text-shadow: 1px 1px 0 #1e222a;
+  border: 2px solid #1e222a;
+  box-shadow: 
+    inset 2px 2px 0 rgba(255, 255, 255, 0.35),
+    inset -2px -2px 0 rgba(0, 0, 0, 0.6),
+    0 3px 0 #151820;
+  transition: all 0.08s ease;
+}
+
+.mc-button:hover {
+  background-color: #4c566a;
+  box-shadow: 
+    inset 2px 2px 0 rgba(255, 255, 255, 0.5),
+    inset -2px -2px 0 rgba(0, 0, 0, 0.7),
+    0 3px 0 #151820;
+}
+
+.mc-button:active {
+  transform: translateY(2px);
+  box-shadow: 
+    inset 2px 2px 0 rgba(0, 0, 0, 0.6),
+    inset -2px -2px 0 rgba(255, 255, 255, 0.2),
+    0 1px 0 #151820;
+}
+
+/* Green Emerald Variant */
+.mc-button-emerald {
+  background-color: #059669;
+  border-color: #064e3b;
+  box-shadow: 
+    inset 2px 2px 0 rgba(167, 243, 208, 0.4),
+    inset -2px -2px 0 rgba(2, 44, 34, 0.7),
+    0 3px 0 #022c22;
+}
+
+.mc-button-emerald:hover {
+  background-color: #10b981;
+}
+
+/* Cyan Diamond Variant */
+.mc-button-diamond {
+  background-color: #0891b2;
+  border-color: #164e63;
+  box-shadow: 
+    inset 2px 2px 0 rgba(165, 243, 252, 0.5),
+    inset -2px -2px 0 rgba(8, 51, 68, 0.7),
+    0 3px 0 #083344;
+}
+
+.mc-button-diamond:hover {
+  background-color: #06b6d4;
+}
+
+/* Minecraft Item Lore Tooltip */
+.mc-lore-card {
+  background: linear-gradient(180deg, rgba(16, 12, 28, 0.95) 0%, rgba(10, 8, 18, 0.98) 100%);
+  border: 2px solid #5b21b6;
+  outline: 2px solid #2e1065;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(124, 58, 237, 0.2);
+}
+
+/* Pixel Grid Background */
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Scanline effect */
+.scanline {
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0) 50%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.2)
+  );
+  background-size: 100% 4px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d1117;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border: 1px solid #1e293b;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
