@@ -160,7 +160,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenJoin, serverAddress }) => {
                 title="点击打开招新群二维码"
               >
                 <img
-                  src="/szut-mc-poster.png"
+                  src="/szut-mc-poster.webp"
                   alt="苏州工学院 Minecraft 交流群 新学期招新海报"
                   className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                 />
