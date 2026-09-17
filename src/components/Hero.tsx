@@ -146,46 +146,51 @@ export const Hero: React.FC<HeroProps> = ({ onOpenJoin, serverAddress }) => {
 
           </div>
 
-          {/* Right Showcase Card */}
+          {/* Right Showcase Card - Recruitment Poster */}
           <div className="lg:col-span-5 relative">
             <div className="relative mx-auto max-w-md lg:max-w-none">
               
-              {/* Main Visual Image (Minecraft SZUT Library) */}
-              <div className="relative border-4 border-[#2d3748] bg-[#1a202c] shadow-2xl mc-border overflow-hidden group">
+              {/* Poster Container with MC Border */}
+              <div 
+                onClick={() => {
+                  sounds.playClick();
+                  onOpenJoin();
+                }}
+                className="relative cursor-pointer border-4 border-[#2d3748] bg-[#1a202c] shadow-2xl mc-border overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/80"
+                title="点击打开招新群二维码"
+              >
                 <img
-                  src="/szut-mc-library.jpg"
-                  alt="Minecraft Recreation of SZUT Library"
-                  className="w-full h-[320px] sm:h-[380px] object-cover transition-transform duration-500 group-hover:scale-105"
+                  src="/szut-mc-poster.png"
+                  alt="苏州工学院 Minecraft 交流群 新学期招新海报"
+                  className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                 />
 
-                {/* Overlaid Badges */}
-                <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-md px-3 py-1 border border-cyan-500/50 flex items-center gap-2">
-                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                  <span className="font-pixel text-[11px] text-cyan-300">
-                    苏工院方块复刻企划
+                {/* Top Banner Tag */}
+                <div className="absolute top-3 left-3 bg-black/85 backdrop-blur-md px-3 py-1 border border-amber-500/70 flex items-center gap-2 shadow-lg">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                  <span className="font-pixel text-[11px] text-amber-300">
+                    新学期官方招新海报
                   </span>
                 </div>
 
-                <div className="absolute bottom-3 right-3 bg-black/80 backdrop-blur-md px-2.5 py-1 border border-amber-500/50 text-[11px] font-mono text-amber-300">
-                  🏛️ 湖畔图书馆 1:1 Voxel
+                {/* Bottom Interactive Bar */}
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-4 flex items-center justify-between text-xs">
+                  <span className="font-mono text-cyan-300 flex items-center gap-1.5">
+                    <span className="w-2 h-2 bg-emerald-400 rounded-none animate-ping"></span>
+                    点击海报直接加群
+                  </span>
+                  <span className="mc-button mc-button-emerald text-[11px] py-1 px-3">
+                    加入社群
+                  </span>
                 </div>
-
-                {/* Subtle Scanline Layer */}
-                <div className="absolute inset-0 scanline pointer-events-none opacity-40"></div>
               </div>
 
-              {/* Floating Minecraft Lore Tooltip Box */}
-              <div className="absolute -bottom-6 -left-4 sm:-left-8 max-w-xs bg-[#100b1a]/95 border-2 border-purple-600 p-3.5 shadow-2xl mc-lore-card text-left hidden sm:block">
-                <div className="flex items-center justify-between pb-1 mb-1 border-b border-purple-800/60">
-                  <span className="font-pixel text-[11px] text-cyan-300">§b苏州工学院·湖畔图书馆</span>
-                  <span className="text-[10px] text-purple-400 font-pixel">§d【史诗工程】</span>
-                </div>
-                <p className="text-[11px] text-slate-300 leading-snug font-sans">
-                  "在数字方块中永恒定格的校园倒影。由苏工院建筑组成员逐块丈量还原，支持光影沉浸游览。"
-                </p>
-                <div className="mt-2 pt-1 border-t border-purple-900/40 flex items-center justify-between text-[10px] text-slate-400 font-mono">
-                  <span>方块数: 120,000+</span>
-                  <span className="text-emerald-400">已竣工 · 开放打卡</span>
+              {/* Floating Minecraft Lore Box */}
+              <div className="absolute -bottom-4 -left-3 sm:-left-6 bg-[#100b1a]/95 border-2 border-cyan-500/70 p-2.5 shadow-2xl mc-lore-card text-left hidden sm:flex items-center gap-3">
+                <div className="w-2.5 h-2.5 bg-cyan-400 rounded-none shadow-[0_0_8px_#06b6d4]"></div>
+                <div>
+                  <div className="font-pixel text-[10px] text-cyan-300">§b同校相聚 · 探索无限</div>
+                  <div className="text-[10px] text-slate-400 font-sans">工院人，永远在线！群号 913295535</div>
                 </div>
               </div>
 

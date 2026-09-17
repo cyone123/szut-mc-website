@@ -112,9 +112,9 @@ export const CommunityIntro: React.FC<CommunityIntroProps> = ({ onOpenJoin }) =>
 
         {/* Community Stats Banner */}
         <div className="bg-[#141926] border-2 border-slate-700 p-8 mc-border">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 text-center divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
             <div className="pt-4 lg:pt-0">
-              <div className="font-pixel text-2xl sm:text-3xl text-cyan-400 mb-1">900+</div>
+              <div className="font-pixel text-2xl sm:text-3xl text-cyan-400 mb-1">100+</div>
               <div className="text-xs text-slate-400 font-mono">QQ 交流群活跃伙伴</div>
             </div>
             <div className="pt-4 lg:pt-0">
@@ -122,13 +122,13 @@ export const CommunityIntro: React.FC<CommunityIntroProps> = ({ onOpenJoin }) =>
               <div className="text-xs text-slate-400 font-mono">苏工院学生自主运营</div>
             </div>
             <div className="pt-4 lg:pt-0">
-              <div className="font-pixel text-2xl sm:text-3xl text-amber-400 mb-1">24/7</div>
+              <div className="font-pixel text-2xl sm:text-3xl text-amber-400 mb-1">7*24小时</div>
               <div className="text-xs text-slate-400 font-mono">校园主机低延迟直连</div>
             </div>
-            <div className="pt-4 lg:pt-0">
+            {/* <div className="pt-4 lg:pt-0">
               <div className="font-pixel text-2xl sm:text-3xl text-purple-400 mb-1">1:1</div>
               <div className="text-xs text-slate-400 font-mono">校园地标持续复刻中</div>
-            </div>
+            </div> */}
           </div>
 
           <div className="mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">

@@ -54,7 +54,7 @@ export function App() {
         />
 
         {/* 5. Campus Showcase Gallery (Real vs Minecraft) */}
-        <CampusGallery />
+        {/* <CampusGallery /> */}
 
         {/* 6. Player Guide & FAQ */}
         <JoinGuide

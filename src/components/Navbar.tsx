@@ -33,7 +33,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenJoin, serverOnline = true 
     { label: '状态雷达', href: '#server-radar', icon: Server },
     { label: '社群分部', href: '#community', icon: Compass },
     { label: '特色玩法', href: '#servers', icon: BookOpen },
-    { label: '校园复刻', href: '#gallery', icon: ImageIcon },
+    // { label: '校园复刻', href: '#gallery', icon: ImageIcon },
     { label: '入坑指南', href: '#guide', icon: Users },
   ];
 
