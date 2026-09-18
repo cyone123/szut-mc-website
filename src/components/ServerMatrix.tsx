@@ -18,7 +18,7 @@ export const ServerMatrix: React.FC<ServerMatrixProps> = ({
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    sounds.playLevelUp();
+    sounds.playExp();
     navigator.clipboard.writeText(serverAddress);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -215,7 +215,7 @@ export const ServerMatrix: React.FC<ServerMatrixProps> = ({
                 href={SERVER_CONFIG.voteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => sounds.playLevelUp()}
+                onClick={() => sounds.playClick()}
                 className="w-full mc-button mc-button-diamond text-xs py-2.5 flex items-center justify-center gap-1.5"
               >
                 <Vote className="w-3.5 h-3.5" />
@@ -286,7 +286,7 @@ export const ServerMatrix: React.FC<ServerMatrixProps> = ({
                 href={SERVER_CONFIG.voteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => sounds.playLevelUp()}
+                onClick={() => sounds.playClick()}
                 className="w-full sm:w-auto mc-button mc-button-emerald text-xs sm:text-sm py-3 px-6 flex items-center justify-center gap-2 shadow-lg"
               >
                 <Vote className="w-4 h-4" />

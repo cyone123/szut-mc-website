@@ -12,7 +12,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenJoin, serverAddress }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopyIp = () => {
-    sounds.playLevelUp();
+    sounds.playExp();
     navigator.clipboard.writeText(serverAddress);
     setCopied(true);
 

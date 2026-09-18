@@ -49,7 +49,7 @@ export const ServerRadar: React.FC<ServerRadarProps> = ({
   };
 
   const handleCopy = () => {
-    sounds.playLevelUp();
+    sounds.playExp();
     navigator.clipboard.writeText(serverAddress);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);

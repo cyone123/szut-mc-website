@@ -14,7 +14,7 @@ export const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const handleCopy = () => {
-    sounds.playLevelUp();
+    sounds.playExp();
     navigator.clipboard.writeText(groupNumber);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
