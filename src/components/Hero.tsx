@@ -136,11 +136,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenJoin, serverAddress }) => {
               </div>
               <div>
                 <div className="text-slate-500 dark:text-slate-400 text-[11px]">玩法模式</div>
-                <div className="text-amber-600 dark:text-amber-400 font-code font-bold text-sm">纯净生存/复刻</div>
+                <div className="text-amber-600 dark:text-amber-400 font-code font-bold text-sm">纯净生存</div>
               </div>
               <div>
                 <div className="text-slate-500 dark:text-slate-400 text-[11px]">入服机制</div>
-                <div className="text-purple-600 dark:text-purple-400 font-code font-bold text-sm">加群审核/登记</div>
+                <div className="text-purple-600 dark:text-purple-400 font-code font-bold text-sm">加群审核</div>
               </div>
             </div>
 

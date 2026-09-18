@@ -50,7 +50,7 @@ export const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
           {/* QR Code Container */}
           <div className="relative p-2 bg-slate-100 dark:bg-slate-900/90 border-2 border-slate-300 dark:border-slate-700 mb-4 group shadow-inner">
             <img
-              src="/szut-qq-qrcode.jpg"
+              src="/szut-qq-qrcode.webp"
               alt="SZUT Minecraft QQ Group QR Code"
               className="w-56 h-auto object-contain rounded-none select-none"
             />
@@ -97,7 +97,7 @@ export const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
             </div>
             <div className="flex items-start gap-2">
               <ExternalLink className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
-              <span>群文件内已提供整合包、启动器配置及白名单登记通道。</span>
+              <span>群文件内已提供整合包、启动器及配置</span>
             </div>
           </div>
 

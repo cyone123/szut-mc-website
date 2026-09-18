@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { 
   Users, CheckCircle2, ChevronDown, ChevronUp, 
-  HelpCircle, ShieldCheck, Download, Gamepad2, ArrowRight 
+  HelpCircle, Download, Gamepad2, ArrowRight, //ShieldCheck
 } from 'lucide-react';
 import { sounds } from '../utils/audio';
 
@@ -16,26 +16,26 @@ export const JoinGuide: React.FC<JoinGuideProps> = ({ onOpenJoin, serverAddress 
   const steps = [
     {
       num: '01',
-      title: '加入 QQ 迎新交流群',
+      title: '加入 QQ 交流群',
       desc: '搜索群号 913295535 或扫码加入。群内提供专用客户端整合包与学长学姐在线答疑。',
       actionText: '立即扫码加群',
       action: onOpenJoin,
       icon: Users,
     },
+    // {
+    //   num: '02',
+    //   title: '登记游戏 ID 获白名单',
+    //   desc: '在群内填写个人游戏 ID（在校生优先秒审通过，保护服务器环境）。',
+    //   icon: ShieldCheck,
+    // },
     {
       num: '02',
-      title: '登记游戏 ID 获白名单',
-      desc: '在群内填写个人游戏 ID 与学籍认证（在校生优先秒审通过，保护服务器防熊环境）。',
-      icon: ShieldCheck,
-    },
-    {
-      num: '03',
       title: '下载整合包或配置客户端',
       desc: '使用 Fabric 26.3 原版或通过群文件一键解压专属优化客户端（含 Sodium 极致流畅优化）。',
       icon: Download,
     },
     {
-      num: '04',
+      num: '03',
       title: '添加服务器并登入世界',
       desc: `多人游戏输入地址 ${serverAddress}，进入属于苏工院人的方块宇宙！`,
       icon: Gamepad2,
@@ -81,15 +81,15 @@ export const JoinGuide: React.FC<JoinGuideProps> = ({ onOpenJoin, serverAddress 
             <span>ONBOARDING GUIDE</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-bold text-slate-900 dark:text-white font-sans">
-            新玩家入坑与白名单指南
+            新玩家入坑指南
           </h2>
           <p className="text-slate-600 dark:text-slate-400 text-sm mt-2">
-            只需简单四步，即可解锁苏工院 Minecraft 校园世界的完整权限
+            只需简单三步，即可解锁苏工院 Minecraft 校园世界的完整权限
           </p>
         </div>
 
         {/* 4 Steps Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {steps.map((step, idx) => {
             const Icon = step.icon;
             return (

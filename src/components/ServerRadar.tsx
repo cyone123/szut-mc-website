@@ -304,7 +304,7 @@ export const ServerRadar: React.FC<ServerRadarProps> = ({
                 className="flex-1 sm:flex-none mc-button mc-button-emerald text-xs py-2 px-4 flex items-center justify-center gap-1.5"
               >
                 <Users className="w-3.5 h-3.5" />
-                <span>申请白名单进服</span>
+                <span>加入群聊</span>
               </button>
             </div>
           </div>
