@@ -6,14 +6,22 @@ import { sounds } from '../utils/audio';
 interface HeroProps {
   onOpenJoin: () => void;
   serverAddress: string;
+  backupAddress?: string;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenJoin, serverAddress }) => {
+export const Hero: React.FC<HeroProps> = ({ 
+  onOpenJoin, 
+  serverAddress,
+  backupAddress = 'play.szut-mc.cc.cd'
+}) => {
+  const [activeLine, setActiveLine] = useState<'primary' | 'backup'>('primary');
   const [copied, setCopied] = useState(false);
+
+  const currentAddress = activeLine === 'primary' ? serverAddress : backupAddress;
 
   const handleCopyIp = () => {
     sounds.playExp();
-    navigator.clipboard.writeText(serverAddress);
+    navigator.clipboard.writeText(currentAddress);
     setCopied(true);
 
     // Fire celebratory Minecraft-styled confetti
@@ -67,7 +75,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenJoin, serverAddress }) => {
 
             {/* Server IP Copy Box */}
             <div className="p-4 bg-white dark:bg-[#141923]/90 border-2 border-slate-300 dark:border-slate-700 max-w-xl mc-border shadow-xl">
-              <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
+              <div className="flex flex-wrap items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2.5 gap-2">
                 <span className="flex items-center gap-1.5 font-mono">
                   <Server className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" /> Java版服务器直连地址
                 </span>
@@ -76,10 +84,48 @@ export const Hero: React.FC<HeroProps> = ({ onOpenJoin, serverAddress }) => {
                 </span>
               </div>
 
+              {/* Line Selector Buttons */}
+              <div className="flex items-center gap-2 mb-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    sounds.playClick();
+                    setActiveLine('primary');
+                  }}
+                  className={`px-2.5 py-1 text-xs font-mono border transition-all flex items-center gap-1.5 cursor-pointer ${
+                    activeLine === 'primary'
+                      ? 'bg-cyan-500 text-black border-cyan-400 font-bold shadow-sm'
+                      : 'bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-none inline-block ${activeLine === 'primary' ? 'bg-black' : 'bg-emerald-500'}`} />
+                  <span>主线路</span>
+                  <span className="text-[10px] opacity-75">(推荐)</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    sounds.playClick();
+                    setActiveLine('backup');
+                  }}
+                  className={`px-2.5 py-1 text-xs font-mono border transition-all flex items-center gap-1.5 cursor-pointer ${
+                    activeLine === 'backup'
+                      ? 'bg-cyan-500 text-black border-cyan-400 font-bold shadow-sm'
+                      : 'bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-none inline-block ${activeLine === 'backup' ? 'bg-black' : 'bg-cyan-500'}`} />
+                  <span>备用线路</span>
+                  <span className="text-[10px] opacity-75">(免端口)</span>
+                </button>
+              </div>
+
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                 <div className="flex-1 bg-slate-100 dark:bg-black/60 px-4 py-3 border border-slate-300 dark:border-slate-700/80 font-code text-sm sm:text-base text-cyan-700 dark:text-cyan-300 font-bold select-all tracking-wider flex items-center justify-between">
-                  <span>{serverAddress}</span>
-                  <span className="text-[10px] text-slate-400 dark:text-slate-500 font-sans hidden sm:inline">端口: 33735</span>
+                  <span>{currentAddress}</span>
+                  <span className="text-[10px] text-slate-400 dark:text-slate-500 font-sans hidden sm:inline">
+                    {activeLine === 'primary' ? '端口: 33735' : 'SRV免端口直连'}
+                  </span>
                 </div>
 
                 <button
@@ -89,15 +135,25 @@ export const Hero: React.FC<HeroProps> = ({ onOpenJoin, serverAddress }) => {
                   {copied ? (
                     <>
                       <Check className="w-4 h-4 text-white" />
-                      <span>已复制IP!</span>
+                      <span>已复制{activeLine === 'primary' ? '主线' : '备用'}IP!</span>
                     </>
                   ) : (
                     <>
                       <Copy className="w-4 h-4" />
-                      <span>复制服务器IP</span>
+                      <span>复制{activeLine === 'primary' ? '主线' : '备用'}IP</span>
                     </>
                   )}
                 </button>
+              </div>
+
+              {/* Line info note */}
+              <div className="mt-2.5 text-[11px] font-mono text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                <span>💡</span>
+                <span>
+                  {activeLine === 'primary'
+                    ? '首选直连线路 (nop.mc6.cn:33735)，多线 BGP 直通'
+                    : '备用专属域名 (play.szut-mc.cc.cd)，无需输入端口'}
+                </span>
               </div>
             </div>
 

@@ -29,6 +29,7 @@ export interface ServerStatusData {
 
 export const SERVER_CONFIG = {
   address: 'nop.mc6.cn:33735',
+  backupAddress: 'play.szut-mc.cc.cd',
   host: 'nop.mc6.cn',
   port: 33735,
   name: 'SZUT 26.3 纯净Fabric生存服务器',

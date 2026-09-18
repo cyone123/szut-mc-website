@@ -4,9 +4,14 @@ import { sounds } from '../utils/audio';
 interface FooterProps {
   onOpenJoin: () => void;
   serverAddress: string;
+  backupAddress?: string;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenJoin, serverAddress }) => {
+export const Footer: React.FC<FooterProps> = ({ 
+  onOpenJoin, 
+  serverAddress,
+  backupAddress = 'play.szut-mc.cc.cd'
+}) => {
   const scrollToTop = () => {
     sounds.playClick();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -45,10 +50,14 @@ export const Footer: React.FC<FooterProps> = ({ onOpenJoin, serverAddress }) => 
               由苏州工学院在校学生创立并维护的 Minecraft 爱好者家园。汇聚建筑、红石生电、纯净生存与校园复刻爱好者，致力于用代码与方块留下大学独一无二的印记。
             </p>
 
-            <div className="flex items-center gap-3 text-xs font-mono text-slate-500 dark:text-slate-400">
-              <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs font-mono text-slate-500 dark:text-slate-400">
+              <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
                 <span className="w-2 h-2 bg-emerald-500 rounded-none inline-block"></span>
-                专线服务器: {serverAddress}
+                主线专线: {serverAddress}
+              </span>
+              <span className="flex items-center gap-1.5 text-cyan-600 dark:text-cyan-400">
+                <span className="w-2 h-2 bg-cyan-500 rounded-none inline-block"></span>
+                备用免端口: {backupAddress}
               </span>
             </div>
           </div>

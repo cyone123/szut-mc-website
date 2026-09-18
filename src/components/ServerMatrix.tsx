@@ -8,18 +8,23 @@ import { SERVER_CONFIG } from '../services/serverStatus';
 
 interface ServerMatrixProps {
   serverAddress: string;
+  backupAddress?: string;
   onOpenJoin: () => void;
 }
 
 export const ServerMatrix: React.FC<ServerMatrixProps> = ({ 
   serverAddress, 
+  backupAddress = 'play.szut-mc.cc.cd',
   onOpenJoin 
 }) => {
+  const [activeAddressTab, setActiveAddressTab] = useState<'primary' | 'backup'>('primary');
   const [copied, setCopied] = useState(false);
+
+  const currentAddress = activeAddressTab === 'primary' ? serverAddress : backupAddress;
 
   const handleCopy = () => {
     sounds.playExp();
-    navigator.clipboard.writeText(serverAddress);
+    navigator.clipboard.writeText(currentAddress);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -93,8 +98,44 @@ export const ServerMatrix: React.FC<ServerMatrixProps> = ({
             </div>
 
             <div className="space-y-2 pt-4 border-t border-emerald-200 dark:border-emerald-900/50">
+              <div className="flex items-center justify-between text-[11px] font-mono">
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      sounds.playClick();
+                      setActiveAddressTab('primary');
+                    }}
+                    className={`px-2 py-0.5 border text-[10px] cursor-pointer transition-colors ${
+                      activeAddressTab === 'primary'
+                        ? 'bg-emerald-600 text-white border-emerald-500 font-bold'
+                        : 'bg-white dark:bg-black/40 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    主线路
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      sounds.playClick();
+                      setActiveAddressTab('backup');
+                    }}
+                    className={`px-2 py-0.5 border text-[10px] cursor-pointer transition-colors ${
+                      activeAddressTab === 'backup'
+                        ? 'bg-emerald-600 text-white border-emerald-500 font-bold'
+                        : 'bg-white dark:bg-black/40 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700 hover:text-slate-900 dark:hover:text-white'
+                    }`}
+                  >
+                    备用免端口
+                  </button>
+                </div>
+                <span className="text-slate-500 dark:text-slate-400 text-[10px]">
+                  {activeAddressTab === 'primary' ? '端口 33735' : 'SRV 免端口'}
+                </span>
+              </div>
+
               <div className="bg-white dark:bg-black/70 p-2 border border-slate-300 dark:border-slate-700 text-xs font-code text-cyan-700 dark:text-cyan-300 flex items-center justify-between shadow-sm">
-                <span className="truncate">{serverAddress}</span>
+                <span className="truncate font-bold">{currentAddress}</span>
                 <button
                   onClick={handleCopy}
                   className="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white p-1"
@@ -108,7 +149,7 @@ export const ServerMatrix: React.FC<ServerMatrixProps> = ({
                 className="w-full mc-button mc-button-emerald text-xs py-2.5 flex items-center justify-center gap-1.5"
               >
                 {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copied ? 'IP 已复制到剪贴板' : '一键复制主服 IP'}</span>
+                <span>{copied ? 'IP 已复制到剪贴板' : `一键复制${activeAddressTab === 'primary' ? '主服' : '备用'} IP`}</span>
               </button>
             </div>
           </div>

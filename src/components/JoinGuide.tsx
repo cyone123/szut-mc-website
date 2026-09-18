@@ -8,9 +8,14 @@ import { sounds } from '../utils/audio';
 interface JoinGuideProps {
   onOpenJoin: () => void;
   serverAddress: string;
+  backupAddress?: string;
 }
 
-export const JoinGuide: React.FC<JoinGuideProps> = ({ onOpenJoin, serverAddress }) => {
+export const JoinGuide: React.FC<JoinGuideProps> = ({ 
+  onOpenJoin, 
+  serverAddress,
+  backupAddress = 'play.szut-mc.cc.cd'
+}) => {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const steps = [
@@ -37,7 +42,7 @@ export const JoinGuide: React.FC<JoinGuideProps> = ({ onOpenJoin, serverAddress 
     {
       num: '03',
       title: '添加服务器并登入世界',
-      desc: `多人游戏输入地址 ${serverAddress}，进入属于苏工院人的方块宇宙！`,
+      desc: `多人游戏输入主线地址 ${serverAddress} 或备用免端口地址 ${backupAddress}，进入属于苏工院人的方块宇宙！`,
       icon: Gamepad2,
     },
   ];

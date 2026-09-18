@@ -10,18 +10,23 @@ import { sounds } from '../utils/audio';
 
 interface ServerRadarProps {
   serverAddress: string;
+  backupAddress?: string;
   onOpenJoin: () => void;
   onStatusChange?: (online: boolean) => void;
 }
 
 export const ServerRadar: React.FC<ServerRadarProps> = ({ 
   serverAddress, 
+  backupAddress = 'play.szut-mc.cc.cd',
   onOpenJoin,
   onStatusChange 
 }) => {
+  const [selectedAddress, setSelectedAddress] = useState<'primary' | 'backup'>('primary');
   const [data, setData] = useState<ServerStatusData | null>(null);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+
+  const currentAddress = selectedAddress === 'primary' ? serverAddress : backupAddress;
 
   const loadStatus = async () => {
     setLoading(true);
@@ -50,7 +55,7 @@ export const ServerRadar: React.FC<ServerRadarProps> = ({
 
   const handleCopy = () => {
     sounds.playExp();
-    navigator.clipboard.writeText(serverAddress);
+    navigator.clipboard.writeText(currentAddress);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -95,7 +100,7 @@ export const ServerRadar: React.FC<ServerRadarProps> = ({
                 {data?.online ? '§aSERVER ONLINE' : '§cSERVER OFFLINE'}
               </span>
               <span className="text-xs font-mono text-slate-500 dark:text-slate-400 hidden sm:inline">
-                [{serverAddress}]
+                [{currentAddress}]
               </span>
             </div>
 
@@ -280,10 +285,43 @@ export const ServerRadar: React.FC<ServerRadarProps> = ({
 
           {/* Card Bottom Actions */}
           <div className="bg-slate-100 dark:bg-[#161c28] p-4 border-t border-slate-200 dark:border-slate-700/80 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400 font-mono">
-              <span className="text-cyan-700 dark:text-cyan-400">直连地址:</span>
-              <span className="text-slate-800 dark:text-white font-code bg-white dark:bg-black/70 px-2 py-1 border border-slate-300 dark:border-slate-700 select-all">
-                {serverAddress}
+            <div className="flex flex-wrap items-center gap-2 text-xs text-slate-600 dark:text-slate-400 font-mono">
+              <span className="text-cyan-700 dark:text-cyan-400 font-bold">连接线路:</span>
+              <div className="inline-flex items-center border border-slate-300 dark:border-slate-700 bg-white dark:bg-black/60 p-0.5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    sounds.playClick();
+                    setSelectedAddress('primary');
+                  }}
+                  className={`px-2 py-0.5 text-[11px] font-mono transition-colors cursor-pointer ${
+                    selectedAddress === 'primary'
+                      ? 'bg-cyan-600 text-white font-bold'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  主线
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    sounds.playClick();
+                    setSelectedAddress('backup');
+                  }}
+                  className={`px-2 py-0.5 text-[11px] font-mono transition-colors cursor-pointer ${
+                    selectedAddress === 'backup'
+                      ? 'bg-cyan-600 text-white font-bold'
+                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  }`}
+                >
+                  备用
+                </button>
+              </div>
+              <span className="text-slate-800 dark:text-white font-code bg-white dark:bg-black/70 px-2 py-1 border border-slate-300 dark:border-slate-700 select-all font-bold">
+                {currentAddress}
+              </span>
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 hidden lg:inline">
+                ({selectedAddress === 'primary' ? '端口 33735' : '免端口直连'})
               </span>
             </div>
 
@@ -293,7 +331,7 @@ export const ServerRadar: React.FC<ServerRadarProps> = ({
                 className="flex-1 sm:flex-none mc-button text-xs py-2 px-4 flex items-center justify-center gap-1.5"
               >
                 {copied ? <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copied ? '已复制 IP' : '复制服务器地址'}</span>
+                <span>{copied ? '已复制 IP' : `复制${selectedAddress === 'primary' ? '主线' : '备用'}地址`}</span>
               </button>
 
               <button

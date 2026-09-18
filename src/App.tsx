@@ -34,11 +34,13 @@ export function AppContent() {
         <Hero
           onOpenJoin={() => setIsJoinModalOpen(true)}
           serverAddress={SERVER_CONFIG.address}
+          backupAddress={SERVER_CONFIG.backupAddress}
         />
 
         {/* 2. Live Server Radar */}
         <ServerRadar
           serverAddress={SERVER_CONFIG.address}
+          backupAddress={SERVER_CONFIG.backupAddress}
           onOpenJoin={() => setIsJoinModalOpen(true)}
           onStatusChange={setServerOnline}
         />
@@ -51,6 +53,7 @@ export function AppContent() {
         {/* 4. Server Matrix & Gameplay Modes */}
         <ServerMatrix
           serverAddress={SERVER_CONFIG.address}
+          backupAddress={SERVER_CONFIG.backupAddress}
           onOpenJoin={() => setIsJoinModalOpen(true)}
         />
 
@@ -61,6 +64,7 @@ export function AppContent() {
         <JoinGuide
           onOpenJoin={() => setIsJoinModalOpen(true)}
           serverAddress={SERVER_CONFIG.address}
+          backupAddress={SERVER_CONFIG.backupAddress}
         />
       </main>
 
@@ -68,6 +72,7 @@ export function AppContent() {
       <Footer
         onOpenJoin={() => setIsJoinModalOpen(true)}
         serverAddress={SERVER_CONFIG.address}
+        backupAddress={SERVER_CONFIG.backupAddress}
       />
 
       {/* QQ Group & Whitelist QR Modal */}
