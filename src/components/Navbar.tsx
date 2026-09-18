@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Volume2, VolumeX, Menu, X, Users, Compass, Server, BookOpen } from 'lucide-react';
+import { Volume2, VolumeX, Menu, X, Users, Compass, Server, BookOpen, Vote, ExternalLink } from 'lucide-react';
 import { sounds } from '../utils/audio';
 import { ThemeToggle } from './ThemeToggle';
 
@@ -31,10 +31,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenJoin, serverOnline = true 
   };
 
   const navLinks = [
-    { label: '状态雷达', href: '#server-radar', icon: Server },
-    { label: '社群分部', href: '#community', icon: Compass },
-    { label: '特色玩法', href: '#servers', icon: BookOpen },
-    { label: '入坑指南', href: '#guide', icon: Users },
+    { label: '状态雷达', href: '#server-radar', icon: Server, isExternal: false },
+    { label: '社群分部', href: '#community', icon: Compass, isExternal: false },
+    { label: '特色玩法', href: '#servers', icon: BookOpen, isExternal: false },
+    { label: '周目公投', href: 'https://vote.szut-mc.cc.cd', icon: Vote, isExternal: true, badge: 'VOTE' },
+    { label: '入坑指南', href: '#guide', icon: Users, isExternal: false },
   ];
 
   return (
@@ -80,11 +81,21 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenJoin, serverOnline = true 
             <a
               key={link.href}
               href={link.href}
+              target={link.isExternal ? '_blank' : undefined}
+              rel={link.isExternal ? 'noopener noreferrer' : undefined}
               onClick={() => sounds.playClick()}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all font-sans font-medium"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-all font-sans font-medium relative group"
             >
-              <link.icon className="w-3.5 h-3.5 opacity-70" />
+              <link.icon className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 text-cyan-600 dark:text-cyan-400" />
               <span>{link.label}</span>
+              {link.badge && (
+                <span className="px-1 py-0.2 text-[8px] font-pixel font-bold bg-amber-400 text-black shadow-xs">
+                  {link.badge}
+                </span>
+              )}
+              {link.isExternal && (
+                <ExternalLink className="w-2.5 h-2.5 opacity-50 ml-0.5" />
+              )}
             </a>
           ))}
         </div>
@@ -153,14 +164,28 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenJoin, serverOnline = true 
             <a
               key={link.href}
               href={link.href}
+              target={link.isExternal ? '_blank' : undefined}
+              rel={link.isExternal ? 'noopener noreferrer' : undefined}
               onClick={() => {
                 sounds.playClick();
                 setMobileMenuOpen(false);
               }}
-              className="flex items-center gap-2 px-3 py-2 text-sm text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="flex items-center justify-between px-3 py-2 text-sm text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800"
             >
-              <link.icon className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-              <span>{link.label}</span>
+              <div className="flex items-center gap-2">
+                <link.icon className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+                <span>{link.label}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                {link.badge && (
+                  <span className="px-1.5 py-0.5 text-[8px] font-pixel font-bold bg-amber-400 text-black">
+                    {link.badge}
+                  </span>
+                )}
+                {link.isExternal && (
+                  <ExternalLink className="w-3.5 h-3.5 opacity-60" />
+                )}
+              </div>
             </a>
           ))}
           <div className="pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 px-3">

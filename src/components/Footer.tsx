@@ -1,4 +1,4 @@
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, ExternalLink } from 'lucide-react';
 import { sounds } from '../utils/audio';
 
 interface FooterProps {
@@ -75,6 +75,18 @@ export const Footer: React.FC<FooterProps> = ({ onOpenJoin, serverAddress }) => 
               <li>
                 <a href="#guide" onClick={() => sounds.playClick()} className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
                   新玩家入坑指南 & FAQ
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://vote.szut-mc.cc.cd" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  onClick={() => sounds.playClick()} 
+                  className="hover:text-amber-600 dark:hover:text-amber-300 transition-colors flex items-center gap-1 text-amber-700 dark:text-amber-400 font-medium"
+                >
+                  <span>周目整合包公投站</span>
+                  <ExternalLink className="w-3 h-3 opacity-70" />
                 </a>
               </li>
             </ul>

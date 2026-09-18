@@ -34,6 +34,7 @@ export const SERVER_CONFIG = {
   name: 'SZUT 26.3 纯净Fabric生存服务器',
   qqGroup: '913295535',
   qqLink: 'https://qm.qq.com/q/73Z8E5pGf3', // QQ join link format
+  voteUrl: 'https://vote.szut-mc.cc.cd', // Modpack voting system
   dynmapUrl: '#', // Map link if enabled
 };
 
