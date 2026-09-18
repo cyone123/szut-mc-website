@@ -22,7 +22,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenJoin, serverAddress }) => 
           <div className="md:col-span-6 space-y-4">
             <div className="flex items-center gap-3">
               <img
-                src="/szut-mc-emblem.jpg"
+                src="/szut-mc-logo.png"
                 alt="SZUT Minecraft Badge"
                 className="w-10 h-10 border border-cyan-500/60 shadow-[0_0_10px_rgba(6,182,212,0.3)]"
               />

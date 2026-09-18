@@ -55,7 +55,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenJoin, serverOnline = true 
         >
           <div className="relative w-10 h-10 border border-cyan-500/60 shadow-[0_0_10px_rgba(6,182,212,0.3)] overflow-hidden transition-transform group-hover:scale-105">
             <img
-              src="/szut-mc-emblem.jpg"
+              src="/szut-mc-logo.png"
               alt="SZUT Minecraft Logo"
               className="w-full h-full object-cover"
             />

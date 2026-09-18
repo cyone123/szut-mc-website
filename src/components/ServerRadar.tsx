@@ -189,7 +189,7 @@ export const ServerRadar: React.FC<ServerRadarProps> = ({
                 <div>
                   <div className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">服务器运行规则</div>
                   <div className="text-xs font-bold font-sans text-amber-700 dark:text-amber-300">
-                    白名单 · 纯净生存二周目
+                    纯净生存二周目
                   </div>
                 </div>
               </div>
@@ -261,13 +261,13 @@ export const ServerRadar: React.FC<ServerRadarProps> = ({
             </div>
 
             {/* Server Feature Badges Footer */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 text-center text-xs">
-              <div className="p-2 bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 font-mono text-slate-700 dark:text-slate-300">
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-2 pt-2 text-center text-xs">
+              {/* <div className="p-2 bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 font-mono text-slate-700 dark:text-slate-300">
                 🛡️ 领地箱子防熊
               </div>
               <div className="p-2 bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 font-mono text-slate-700 dark:text-slate-300">
                 ⚡ Carpet 假人挂机
-              </div>
+              </div> */}
               <div className="p-2 bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60 font-mono text-slate-700 dark:text-slate-300">
                 💎 生电自动化友好
               </div>

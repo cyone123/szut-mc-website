@@ -112,7 +112,7 @@ export const CommunityIntro: React.FC<CommunityIntroProps> = ({ onOpenJoin }) =>
 
         {/* Community Stats Banner */}
         <div className="bg-white dark:bg-[#141926] border-2 border-slate-300 dark:border-slate-700 p-8 mc-border shadow-lg">
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 text-center divide-y lg:divide-y-0 lg:divide-x divide-slate-200 dark:divide-slate-800">
+          <div className="grid grid-cols-3 lg:grid-cols-3 gap-6 text-center divide-y lg:divide-y-0 lg:divide-x divide-slate-200 dark:divide-slate-800">
             <div className="pt-4 lg:pt-0">
               <div className="font-pixel text-2xl sm:text-3xl text-cyan-600 dark:text-cyan-400 mb-1">100+</div>
               <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">QQ 交流群活跃伙伴</div>
@@ -122,7 +122,7 @@ export const CommunityIntro: React.FC<CommunityIntroProps> = ({ onOpenJoin }) =>
               <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">苏工院学生自主运营</div>
             </div>
             <div className="pt-4 lg:pt-0">
-              <div className="font-pixel text-2xl sm:text-3xl text-amber-600 dark:text-amber-400 mb-1">7*24小时</div>
+              <div className="font-pixel text-2xl sm:text-3xl text-amber-600 dark:text-amber-400 mb-1">7*24h</div>
               <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">校园主机低延迟直连</div>
             </div>
           </div>
