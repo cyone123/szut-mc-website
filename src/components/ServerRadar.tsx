@@ -237,11 +237,17 @@ export const ServerRadar: React.FC<ServerRadarProps> = ({
                         title={player.name}
                       >
                         <img
-                          src={`https://crafatar.com/avatars/${player.uuid || player.name}?size=18&overlay`}
+                          src={`https://minotar.net/helm/${encodeURIComponent(player.uuid || player.name)}/20`}
                           alt={player.name}
                           className="w-4 h-4 rounded-none image-pixelated"
                           onError={(e) => {
-                            (e.target as HTMLElement).style.display = 'none';
+                            const target = e.currentTarget;
+                            if (!target.dataset.fallback) {
+                              target.dataset.fallback = 'true';
+                              target.src = `https://mc-heads.net/avatar/${encodeURIComponent(player.uuid || player.name)}/20`;
+                            } else {
+                              target.style.display = 'none';
+                            }
                           }}
                         />
                         <span>{player.name}</span>

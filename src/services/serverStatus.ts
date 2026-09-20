@@ -39,66 +39,123 @@ export const SERVER_CONFIG = {
   dynmapUrl: '#', // Map link if enabled
 };
 
+function parseAddress(address: string): { host: string; port: number } {
+  const [hostPart, portPart] = address.split(':');
+  const host = hostPart || SERVER_CONFIG.host;
+  const port = portPart ? parseInt(portPart, 10) : SERVER_CONFIG.port;
+  return { host, port: isNaN(port) ? 25565 : port };
+}
+
+async function fetchWithTimeout(url: string, options: RequestInit = {}, timeoutMs = 4000): Promise<Response> {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+    });
+    return response;
+  } finally {
+    clearTimeout(id);
+  }
+}
+
+// 1. Primary API: MineBBS MOTD Status API (China optimized)
+async function fetchFromMineBBS(address: string, startTime: number): Promise<ServerStatusData> {
+  const { host, port } = parseAddress(address);
+  const url = `https://motd.minebbs.com/api/status?ip=${encodeURIComponent(host)}&port=${port}&stype=auto&srv=false`;
+
+  const response = await fetchWithTimeout(url, {
+    cache: 'no-store',
+  }, 5000);
+
+  if (!response.ok) {
+    throw new Error(`MineBBS HTTP error! status: ${response.status}`);
+  }
+
+  const data = await response.json();
+  const latency = typeof data.delay === 'number' && data.delay > 0
+    ? data.delay
+    : Math.round(performance.now() - startTime);
+
+  if (data.status === 'online') {
+    let playerList: ServerPlayer[] = [];
+    if (typeof data.players?.sample === 'string' && data.players.sample.trim()) {
+      playerList = data.players.sample
+        .split(',')
+        .map((name: string) => name.trim())
+        .filter((name: string) => Boolean(name))
+        .map((name: string) => ({ name }));
+    } else if (Array.isArray(data.players?.sample)) {
+      playerList = data.players.sample.map((p: any) => {
+        if (typeof p === 'string') return { name: p.trim() };
+        if (typeof p === 'object' && p !== null && 'name' in p) {
+          return { name: String(p.name), uuid: p.uuid || p.id };
+        }
+        return { name: String(p) };
+      });
+    }
+
+    const rawMotd = data.motd
+      ? (Array.isArray(data.motd) ? data.motd : [String(data.motd)])
+      : ['SZUT 26.3纯净fabric生存服务器'];
+    const cleanMotd = data.pureMotd
+      ? (Array.isArray(data.pureMotd) ? data.pureMotd : [String(data.pureMotd)])
+      : rawMotd;
+
+    return {
+      online: true,
+      ip: data.host?.split(':')[0] || host,
+      port: parseInt(data.host?.split(':')[1], 10) || port,
+      hostname: data.host?.split(':')[0] || host,
+      version: data.version || 'Fabric 26.3',
+      protocol: typeof data.protocol === 'number' ? data.protocol : undefined,
+      players: {
+        online: data.players?.online ?? 0,
+        max: data.players?.max ?? 20,
+        list: playerList,
+      },
+      motd: {
+        raw: rawMotd,
+        clean: cleanMotd,
+        html: rawMotd,
+      },
+      icon: data.icon,
+      latency,
+      lastUpdated: new Date(),
+    };
+  } else {
+    return {
+      online: false,
+      ip: host,
+      port,
+      hostname: host,
+      version: data.version || 'Fabric 26.3',
+      players: {
+        online: 0,
+        max: 20,
+        list: [],
+      },
+      motd: {
+        raw: ['§c服务器离线或维护中...'],
+        clean: ['服务器离线或维护中...'],
+        html: ['<span style="color:#ff5555;">服务器离线或维护中...</span>'],
+      },
+      latency,
+      lastUpdated: new Date(),
+    };
+  }
+}
+
 export async function fetchServerStatus(address: string = SERVER_CONFIG.address): Promise<ServerStatusData> {
   const startTime = performance.now();
+
   try {
-    const response = await fetch(`https://api.mcsrvstat.us/3/${encodeURIComponent(address)}`, {
-      cache: 'no-store',
-    });
-    const latency = Math.round(performance.now() - startTime);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    if (data.online) {
-      return {
-        online: true,
-        ip: data.ip || '202.189.13.179',
-        port: data.port || 33735,
-        hostname: data.hostname || 'nop.mc6.cn',
-        version: data.version || 'Fabric 26.3',
-        protocol: data.protocol?.version,
-        players: {
-          online: data.players?.online ?? 0,
-          max: data.players?.max ?? 20,
-          list: data.players?.list ?? [],
-        },
-        motd: {
-          raw: data.motd?.raw || ['SZUT 26.3纯净fabric生存服务器'],
-          clean: data.motd?.clean || ['SZUT 26.3纯净fabric生存服务器'],
-          html: data.motd?.html || ['SZUT 26.3纯净fabric生存服务器'],
-        },
-        icon: data.icon,
-        latency,
-        lastUpdated: new Date(),
-      };
-    } else {
-      return {
-        online: false,
-        ip: data.ip || 'nop.mc6.cn',
-        port: 33735,
-        hostname: 'nop.mc6.cn',
-        version: 'Fabric 26.3',
-        players: {
-          online: 0,
-          max: 20,
-        },
-        motd: {
-          raw: ['§c服务器离线或维护中...'],
-          clean: ['服务器离线或维护中...'],
-          html: ['<span style="color:#ff5555;">服务器离线或维护中...</span>'],
-        },
-        latency,
-        lastUpdated: new Date(),
-      };
-    }
+    return await fetchFromMineBBS(address, startTime);
   } catch (err) {
-    console.warn('MCSrvStat API error, fallback to default state:', err);
+    console.warn('MineBBS API error, falling back to default static state:', err);
     return {
-      online: true, // Fallback default state
+      online: true,
       ip: 'nop.mc6.cn',
       port: 33735,
       hostname: 'nop.mc6.cn',
