@@ -1,44 +1,15 @@
-import { useState } from 'react';
-import confetti from 'canvas-confetti';
-import { Copy, Check, Users, Sparkles, Server, ArrowDown } from 'lucide-react';
+import { Users, Sparkles, Server, ArrowDown } from 'lucide-react';
 import { sounds } from '../utils/audio';
 
 interface HeroProps {
   onOpenJoin: () => void;
-  serverAddress: string;
+  serverAddress?: string;
   backupAddress?: string;
 }
 
 export const Hero: React.FC<HeroProps> = ({ 
   onOpenJoin, 
-  serverAddress,
-  backupAddress = 'play.szut-mc.cc.cd'
 }) => {
-  const [activeLine, setActiveLine] = useState<'primary' | 'backup'>('primary');
-  const [copied, setCopied] = useState(false);
-
-  const currentAddress = activeLine === 'primary' ? serverAddress : backupAddress;
-
-  const handleCopyIp = () => {
-    sounds.playExp();
-    navigator.clipboard.writeText(currentAddress);
-    setCopied(true);
-
-    // Fire celebratory Minecraft-styled confetti
-    try {
-      confetti({
-        particleCount: 50,
-        spread: 60,
-        origin: { y: 0.7 },
-        colors: ['#55ffff', '#55ff55', '#ffaa00', '#ffffff'],
-        shapes: ['square'],
-      });
-    } catch {
-      // Confetti fallback
-    }
-
-    setTimeout(() => setCopied(false), 2500);
-  };
 
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
@@ -73,76 +44,38 @@ export const Hero: React.FC<HeroProps> = ({
               </p>
             </div>
 
-            {/* Server IP Copy Box */}
+            {/* Server Access / Group IP Acquisition Card */}
             <div className="p-4 bg-white dark:bg-[#141923]/90 border-2 border-slate-300 dark:border-slate-700 max-w-xl mc-border shadow-xl">
               <div className="flex flex-wrap items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2.5 gap-2">
                 <span className="flex items-center gap-1.5 font-mono">
-                  <Server className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" /> Java版服务器直连地址
+                  <Server className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" /> 服务器联机接入
                 </span>
                 <span className="text-emerald-700 dark:text-emerald-400 font-mono text-[11px] bg-emerald-100 dark:bg-emerald-950/60 px-2 py-0.5 border border-emerald-300 dark:border-emerald-800">
-                  Fabric 26.3 · 纯净生存
+                  免白名单开放 · 群内获取IP
                 </span>
-              </div>
-
-              {/* Line Selector Buttons */}
-              <div className="flex items-center gap-2 mb-3">
-                <button
-                  type="button"
-                  onClick={() => {
-                    sounds.playClick();
-                    setActiveLine('primary');
-                  }}
-                  className={`px-2.5 py-1 text-xs font-mono border transition-all flex items-center gap-1.5 cursor-pointer ${
-                    activeLine === 'primary'
-                      ? 'bg-cyan-500 text-black border-cyan-400 font-bold shadow-sm'
-                      : 'bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700 hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                >
-                  <span className={`w-1.5 h-1.5 rounded-none inline-block ${activeLine === 'primary' ? 'bg-black' : 'bg-emerald-500'}`} />
-                  <span>主线路</span>
-                  <span className="text-[10px] opacity-75">(推荐)</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    sounds.playClick();
-                    setActiveLine('backup');
-                  }}
-                  className={`px-2.5 py-1 text-xs font-mono border transition-all flex items-center gap-1.5 cursor-pointer ${
-                    activeLine === 'backup'
-                      ? 'bg-cyan-500 text-black border-cyan-400 font-bold shadow-sm'
-                      : 'bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700 hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                >
-                  <span className={`w-1.5 h-1.5 rounded-none inline-block ${activeLine === 'backup' ? 'bg-black' : 'bg-cyan-500'}`} />
-                  <span>备用线路</span>
-                  <span className="text-[10px] opacity-75">(免端口)</span>
-                </button>
               </div>
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                <div className="flex-1 bg-slate-100 dark:bg-black/60 px-4 py-3 border border-slate-300 dark:border-slate-700/80 font-code text-sm sm:text-base text-cyan-700 dark:text-cyan-300 font-bold select-all tracking-wider flex items-center justify-between">
-                  <span>{currentAddress}</span>
-                  <span className="text-[10px] text-slate-400 dark:text-slate-500 font-sans hidden sm:inline">
-                    {activeLine === 'primary' ? '端口: 33735' : 'SRV免端口直连'}
+                <div className="flex-1 bg-slate-100 dark:bg-black/60 px-4 py-3 border border-slate-300 dark:border-slate-700/80 font-mono text-xs sm:text-sm text-slate-700 dark:text-slate-300 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-emerald-500 inline-block animate-pulse"></span>
+                    <span className="font-pixel text-xs text-cyan-600 dark:text-cyan-400">直连线路:</span>
+                    <span className="font-semibold tracking-wide">QQ群公告获取</span>
+                  </div>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-500 font-sans hidden sm:inline">
+                    群号: 913295535
                   </span>
                 </div>
 
                 <button
-                  onClick={handleCopyIp}
-                  className="mc-button mc-button-diamond text-xs py-3 px-5 flex items-center justify-center gap-2 shrink-0"
+                  onClick={() => {
+                    sounds.playClick();
+                    onOpenJoin();
+                  }}
+                  className="mc-button mc-button-emerald text-xs py-3 px-5 flex items-center justify-center gap-2 shrink-0"
                 >
-                  {copied ? (
-                    <>
-                      <Check className="w-4 h-4 text-white" />
-                      <span>已复制{activeLine === 'primary' ? '主线' : '备用'}IP!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-4 h-4" />
-                      <span>复制{activeLine === 'primary' ? '主线' : '备用'}IP</span>
-                    </>
-                  )}
+                  <Users className="w-4 h-4" />
+                  <span>进群获取服务器IP</span>
                 </button>
               </div>
 
@@ -150,9 +83,7 @@ export const Hero: React.FC<HeroProps> = ({
               <div className="mt-2.5 text-[11px] font-mono text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
                 <span>💡</span>
                 <span>
-                  {activeLine === 'primary'
-                    ? '首选直连线路 (nop.mc6.cn:33735)，多线 BGP 直通'
-                    : '备用专属域名 (play.szut-mc.cc.cd)，无需输入端口'}
+                  为维护服务器稳定纯净环境，直连专线与备用线路已在交流群公告置顶发布，免白名单即可直连。
                 </span>
               </div>
             </div>
@@ -196,7 +127,7 @@ export const Hero: React.FC<HeroProps> = ({
               </div>
               <div>
                 <div className="text-slate-500 dark:text-slate-400 text-[11px]">入服机制</div>
-                <div className="text-purple-600 dark:text-purple-400 font-code font-bold text-sm">加群审核</div>
+                <div className="text-purple-600 dark:text-purple-400 font-code font-bold text-sm">免白名单</div>
               </div>
             </div>
 

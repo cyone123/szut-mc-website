@@ -7,14 +7,12 @@ import { sounds } from '../utils/audio';
 
 interface JoinGuideProps {
   onOpenJoin: () => void;
-  serverAddress: string;
+  serverAddress?: string;
   backupAddress?: string;
 }
 
 export const JoinGuide: React.FC<JoinGuideProps> = ({ 
   onOpenJoin, 
-  serverAddress,
-  backupAddress = 'play.szut-mc.cc.cd'
 }) => {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -22,7 +20,7 @@ export const JoinGuide: React.FC<JoinGuideProps> = ({
     {
       num: '01',
       title: '加入 QQ 交流群',
-      desc: '搜索群号 913295535 或扫码加入。群内提供专用客户端整合包与学长学姐在线答疑。',
+      desc: '搜索群号 913295535 或扫码加入。群内提供专用客户端整合包与服务器地址，学长学姐在线答疑。',
       actionText: '立即扫码加群',
       action: onOpenJoin,
       icon: Users,
@@ -36,13 +34,13 @@ export const JoinGuide: React.FC<JoinGuideProps> = ({
     {
       num: '02',
       title: '下载整合包或配置客户端',
-      desc: '使用 Fabric 26.3 原版或通过群文件一键解压专属优化客户端（含 Sodium 极致流畅优化）。',
+      desc: '使用 Fabric 26.3 版或通过群文件一键解压专属优化客户端。',
       icon: Download,
     },
     {
       num: '03',
       title: '添加服务器并登入世界',
-      desc: `多人游戏输入主线地址 ${serverAddress} 或备用免端口地址 ${backupAddress}，进入属于苏工院人的方块宇宙！`,
+      desc: '在群公告获取专属直连 IP 与备用专线，打开多人游戏添加服务器即可秒进，开启苏工院方块之旅！',
       icon: Gamepad2,
     },
   ];

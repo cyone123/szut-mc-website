@@ -3,14 +3,12 @@ import { sounds } from '../utils/audio';
 
 interface FooterProps {
   onOpenJoin: () => void;
-  serverAddress: string;
+  serverAddress?: string;
   backupAddress?: string;
 }
 
 export const Footer: React.FC<FooterProps> = ({ 
   onOpenJoin, 
-  serverAddress,
-  backupAddress = 'play.szut-mc.cc.cd'
 }) => {
   const scrollToTop = () => {
     sounds.playClick();
@@ -53,11 +51,11 @@ export const Footer: React.FC<FooterProps> = ({
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs font-mono text-slate-500 dark:text-slate-400">
               <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
                 <span className="w-2 h-2 bg-emerald-500 rounded-none inline-block"></span>
-                主线专线: {serverAddress}
+                全天候稳定运行
               </span>
               <span className="flex items-center gap-1.5 text-cyan-600 dark:text-cyan-400">
                 <span className="w-2 h-2 bg-cyan-500 rounded-none inline-block"></span>
-                备用免端口: {backupAddress}
+                直连线路请进群查看最新公告
               </span>
             </div>
           </div>

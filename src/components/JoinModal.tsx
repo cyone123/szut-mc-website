@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, Check, Copy, ExternalLink, ShieldCheck, Users } from 'lucide-react';
+import { X, Check, Copy, ExternalLink, ShieldCheck, Server } from 'lucide-react';
 import { sounds } from '../utils/audio';
 
 interface JoinModalProps {
@@ -62,9 +62,9 @@ export const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
           <div className="w-full bg-slate-50 dark:bg-[#1a202c] p-3 border border-slate-200 dark:border-slate-700/70 mb-4 text-left">
             <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
               <span>官方交流群号</span>
-              <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1 font-mono">
+              {/* <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1 font-mono">
                 <Users className="w-3.5 h-3.5" /> 迎新与白名单审核
-              </span>
+              </span> */}
             </div>
             <div className="flex items-center justify-between gap-2">
               <span className="text-xl font-code font-bold text-slate-900 dark:text-white tracking-widest selection:bg-cyan-500">
@@ -91,6 +91,10 @@ export const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
 
           {/* Tips */}
           <div className="w-full text-xs text-slate-600 dark:text-slate-400 space-y-1.5 bg-slate-50 dark:bg-slate-800/40 p-3 border border-slate-200 dark:border-slate-700/50 mb-4 text-left">
+            <div className="flex items-start gap-2">
+              <Server className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+              <span>当前<strong>免白名单开放</strong>，服务器直连 IP 与备用线路已在群公告发布。</span>
+            </div>
             <div className="flex items-start gap-2">
               <ShieldCheck className="w-4 h-4 text-cyan-600 dark:text-cyan-400 shrink-0 mt-0.5" />
               <span>入群验证请填写：<strong>苏工院学院/专业 + 游戏ID</strong>（在校生优先审核）</span>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { 
   Server, RefreshCw, Wifi, Users, Shield, Cpu, 
-  Sparkles, Copy, Check, Terminal 
+  Sparkles, Terminal 
 } from 'lucide-react';
 import type { ServerStatusData } from '../services/serverStatus';
 import { fetchServerStatus } from '../services/serverStatus';
@@ -17,16 +17,11 @@ interface ServerRadarProps {
 
 export const ServerRadar: React.FC<ServerRadarProps> = ({ 
   serverAddress, 
-  backupAddress = 'play.szut-mc.cc.cd',
   onOpenJoin,
   onStatusChange 
 }) => {
-  const [selectedAddress, setSelectedAddress] = useState<'primary' | 'backup'>('primary');
   const [data, setData] = useState<ServerStatusData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [copied, setCopied] = useState(false);
-
-  const currentAddress = selectedAddress === 'primary' ? serverAddress : backupAddress;
 
   const loadStatus = async () => {
     setLoading(true);
@@ -51,13 +46,6 @@ export const ServerRadar: React.FC<ServerRadarProps> = ({
   const handleManualRefresh = () => {
     sounds.playClick();
     loadStatus();
-  };
-
-  const handleCopy = () => {
-    sounds.playExp();
-    navigator.clipboard.writeText(currentAddress);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
   };
 
   const motdSpans = data?.motd.raw?.[0] ? parseMotd(data.motd.raw.join(' \n ')) : [];
@@ -100,7 +88,7 @@ export const ServerRadar: React.FC<ServerRadarProps> = ({
                 {data?.online ? '§aSERVER ONLINE' : '§cSERVER OFFLINE'}
               </span>
               <span className="text-xs font-mono text-slate-500 dark:text-slate-400 hidden sm:inline">
-                [{currentAddress}]
+                [实时状态探针 · 校园专线]
               </span>
             </div>
 
@@ -261,10 +249,13 @@ export const ServerRadar: React.FC<ServerRadarProps> = ({
                       当前服务器整装待发，随时欢迎苏工院伙伴上线联机开荒！
                     </span>
                     <button
-                      onClick={handleCopy}
-                      className="text-cyan-600 dark:text-cyan-400 hover:underline font-mono text-[11px]"
+                      onClick={() => {
+                        sounds.playClick();
+                        onOpenJoin();
+                      }}
+                      className="text-cyan-600 dark:text-cyan-400 hover:underline font-mono text-[11px] shrink-0"
                     >
-                      {copied ? 'IP 已复制!' : '立即直连进服 →'}
+                      进群获取IP →
                     </button>
                   </div>
                 )}
@@ -292,63 +283,28 @@ export const ServerRadar: React.FC<ServerRadarProps> = ({
           {/* Card Bottom Actions */}
           <div className="bg-slate-100 dark:bg-[#161c28] p-4 border-t border-slate-200 dark:border-slate-700/80 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="flex flex-wrap items-center gap-2 text-xs text-slate-600 dark:text-slate-400 font-mono">
-              <span className="text-cyan-700 dark:text-cyan-400 font-bold">连接线路:</span>
-              <div className="inline-flex items-center border border-slate-300 dark:border-slate-700 bg-white dark:bg-black/60 p-0.5">
-                <button
-                  type="button"
-                  onClick={() => {
-                    sounds.playClick();
-                    setSelectedAddress('primary');
-                  }}
-                  className={`px-2 py-0.5 text-[11px] font-mono transition-colors cursor-pointer ${
-                    selectedAddress === 'primary'
-                      ? 'bg-cyan-600 text-white font-bold'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                >
-                  主线
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    sounds.playClick();
-                    setSelectedAddress('backup');
-                  }}
-                  className={`px-2 py-0.5 text-[11px] font-mono transition-colors cursor-pointer ${
-                    selectedAddress === 'backup'
-                      ? 'bg-cyan-600 text-white font-bold'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-                  }`}
-                >
-                  备用
-                </button>
-              </div>
-              <span className="text-slate-800 dark:text-white font-code bg-white dark:bg-black/70 px-2 py-1 border border-slate-300 dark:border-slate-700 select-all font-bold">
-                {currentAddress}
+              <span className="inline-flex items-center gap-1.5 px-2 py-1 bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-emerald-700 dark:text-emerald-400 font-semibold">
+                <span className="w-1.5 h-1.5 bg-emerald-500 inline-block animate-pulse"></span>
+                免白名单开放中
               </span>
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 hidden lg:inline">
-                ({selectedAddress === 'primary' ? '端口 33735' : '免端口直连'})
+              <span className="text-slate-700 dark:text-slate-300">
+                服务器直连地址请在交流群内获取
+              </span>
+              <span className="text-[11px] text-slate-400 dark:text-slate-500 hidden md:inline">
+                (最新群公告查看主线与备用专线)
               </span>
             </div>
 
             <div className="flex items-center gap-3 w-full sm:w-auto">
               <button
-                onClick={handleCopy}
-                className="flex-1 sm:flex-none mc-button text-xs py-2 px-4 flex items-center justify-center gap-1.5"
-              >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copied ? '已复制 IP' : `复制${selectedAddress === 'primary' ? '主线' : '备用'}地址`}</span>
-              </button>
-
-              <button
                 onClick={() => {
                   sounds.playClick();
                   onOpenJoin();
                 }}
-                className="flex-1 sm:flex-none mc-button mc-button-emerald text-xs py-2 px-4 flex items-center justify-center gap-1.5"
+                className="w-full sm:w-auto mc-button mc-button-emerald text-xs py-2 px-5 flex items-center justify-center gap-2"
               >
                 <Users className="w-3.5 h-3.5" />
-                <span>加入群聊</span>
+                <span>加入交流群获取IP (913295535)</span>
               </button>
             </div>
           </div>

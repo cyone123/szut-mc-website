@@ -189,7 +189,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenJoin, serverOnline = true 
             </a>
           ))}
           <div className="pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 px-3">
-            <span>服务器: nop.mc6.cn:33735</span>
+            <span className="flex items-center gap-1.5 font-mono">
+              <span className="w-1.5 h-1.5 bg-emerald-500 inline-block animate-pulse"></span>
+              群内获取直连IP
+            </span>
             <span className="text-emerald-600 dark:text-emerald-400 font-mono">Fabric 26.3</span>
           </div>
         </div>

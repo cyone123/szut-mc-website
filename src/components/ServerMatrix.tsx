@@ -1,33 +1,19 @@
-import { useState } from 'react';
 import { 
-  Compass, Hammer, Swords, Check, Copy, 
-  Sparkles, MapPin, Zap, ShieldCheck, Vote, ExternalLink 
+  Compass, Hammer, Swords, 
+  Sparkles, MapPin, Zap, ShieldCheck, Vote, ExternalLink, Users 
 } from 'lucide-react';
 import { sounds } from '../utils/audio';
 import { SERVER_CONFIG } from '../services/serverStatus';
 
 interface ServerMatrixProps {
-  serverAddress: string;
+  serverAddress?: string;
   backupAddress?: string;
   onOpenJoin: () => void;
 }
 
 export const ServerMatrix: React.FC<ServerMatrixProps> = ({ 
-  serverAddress, 
-  backupAddress = 'play.szut-mc.cc.cd',
   onOpenJoin 
 }) => {
-  const [activeAddressTab, setActiveAddressTab] = useState<'primary' | 'backup'>('primary');
-  const [copied, setCopied] = useState(false);
-
-  const currentAddress = activeAddressTab === 'primary' ? serverAddress : backupAddress;
-
-  const handleCopy = () => {
-    sounds.playExp();
-    navigator.clipboard.writeText(currentAddress);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
     <section id="servers" className="py-20 relative">
@@ -97,59 +83,30 @@ export const ServerMatrix: React.FC<ServerMatrixProps> = ({
               </div>
             </div>
 
-            <div className="space-y-2 pt-4 border-t border-emerald-200 dark:border-emerald-900/50">
+            <div className="space-y-2.5 pt-4 border-t border-emerald-200 dark:border-emerald-900/50">
               <div className="flex items-center justify-between text-[11px] font-mono">
-                <div className="flex items-center gap-1">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      sounds.playClick();
-                      setActiveAddressTab('primary');
-                    }}
-                    className={`px-2 py-0.5 border text-[10px] cursor-pointer transition-colors ${
-                      activeAddressTab === 'primary'
-                        ? 'bg-emerald-600 text-white border-emerald-500 font-bold'
-                        : 'bg-white dark:bg-black/40 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700 hover:text-slate-900 dark:hover:text-white'
-                    }`}
-                  >
-                    主线路
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      sounds.playClick();
-                      setActiveAddressTab('backup');
-                    }}
-                    className={`px-2 py-0.5 border text-[10px] cursor-pointer transition-colors ${
-                      activeAddressTab === 'backup'
-                        ? 'bg-emerald-600 text-white border-emerald-500 font-bold'
-                        : 'bg-white dark:bg-black/40 text-slate-600 dark:text-slate-400 border-slate-300 dark:border-slate-700 hover:text-slate-900 dark:hover:text-white'
-                    }`}
-                  >
-                    备用免端口
-                  </button>
-                </div>
+                <span className="text-emerald-700 dark:text-emerald-400 font-bold flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 bg-emerald-500 inline-block animate-pulse"></span>
+                  服务器地址接入
+                </span>
                 <span className="text-slate-500 dark:text-slate-400 text-[10px]">
-                  {activeAddressTab === 'primary' ? '端口 33735' : 'SRV 免端口'}
+                  免白名单 · 群内获取
                 </span>
               </div>
 
-              <div className="bg-white dark:bg-black/70 p-2 border border-slate-300 dark:border-slate-700 text-xs font-code text-cyan-700 dark:text-cyan-300 flex items-center justify-between shadow-sm">
-                <span className="truncate font-bold">{currentAddress}</span>
-                <button
-                  onClick={handleCopy}
-                  className="text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white p-1"
-                  title="复制地址"
-                >
-                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                </button>
+              <div className="bg-white dark:bg-black/70 p-2.5 border border-slate-300 dark:border-slate-700 text-xs font-mono text-slate-700 dark:text-slate-300 flex items-center justify-between shadow-sm">
+                <span className="font-semibold text-emerald-800 dark:text-emerald-300">直连专线：交流群最新公告</span>
+                <span className="text-[10px] text-slate-400 dark:text-slate-500">群号: 913295535</span>
               </div>
               <button
-                onClick={handleCopy}
+                onClick={() => {
+                  sounds.playClick();
+                  onOpenJoin();
+                }}
                 className="w-full mc-button mc-button-emerald text-xs py-2.5 flex items-center justify-center gap-1.5"
               >
-                {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copied ? 'IP 已复制到剪贴板' : `一键复制${activeAddressTab === 'primary' ? '主服' : '备用'} IP`}</span>
+                <Users className="w-3.5 h-3.5" />
+                <span>加群获取联机地址畅玩</span>
               </button>
             </div>
           </div>
