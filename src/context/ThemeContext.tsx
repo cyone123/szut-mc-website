@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, useSyncExternalStore } from 'react';
 import type { ReactNode } from 'react';
 import type { ThemeMode } from '../utils/theme';
 import { getStoredTheme, applyTheme, THEME_STORAGE_KEY } from '../utils/theme';
@@ -10,18 +10,24 @@ interface ThemeContextType {
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const THEME_CHANGED_EVENT = 'szut_mc_theme_changed';
+
+// useSyncExternalStore preserves the server's dark snapshot during hydration,
+// then reads the user's browser setting once hydration is complete.
+function subscribeToTheme(listener: () => void) {
+  window.addEventListener('storage', listener);
+  window.addEventListener(THEME_CHANGED_EVENT, listener);
+  return () => {
+    window.removeEventListener('storage', listener);
+    window.removeEventListener(THEME_CHANGED_EVENT, listener);
+  };
+}
+
+const getServerTheme = (): ThemeMode => 'dark';
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<ThemeMode>(() => getStoredTheme());
-  const [isDark, setIsDark] = useState<boolean>(() => {
-    const initial = getStoredTheme();
-    if (initial === 'system') {
-      return typeof window !== 'undefined'
-        ? window.matchMedia('(prefers-color-scheme: dark)').matches
-        : true;
-    }
-    return initial === 'dark';
-  });
+  const theme = useSyncExternalStore(subscribeToTheme, getStoredTheme, getServerTheme);
+  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
     const resolvedIsDark = applyTheme(theme);
@@ -39,8 +45,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, [theme]);
 
   const setTheme = (newTheme: ThemeMode) => {
-    setThemeState(newTheme);
     localStorage.setItem(THEME_STORAGE_KEY, newTheme);
+    window.dispatchEvent(new Event(THEME_CHANGED_EVENT));
     const resolvedIsDark = applyTheme(newTheme);
     setIsDark(resolvedIsDark);
   };

@@ -157,6 +157,8 @@ export const JoinGuide: React.FC<JoinGuideProps> = ({
                 >
                   <button
                     onClick={() => toggleFaq(idx)}
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${idx}`}
                     className="w-full text-left px-5 py-4 flex items-center justify-between gap-4 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors"
                   >
                     <span className="text-sm font-medium text-slate-800 dark:text-slate-200 font-sans">
@@ -169,11 +171,13 @@ export const JoinGuide: React.FC<JoinGuideProps> = ({
                     )}
                   </button>
 
-                  {isOpen && (
-                    <div className="px-5 pb-4 pt-1 text-xs text-slate-600 dark:text-slate-400 font-sans leading-relaxed border-t border-slate-200 dark:border-slate-800/60 bg-slate-50/60 dark:bg-black/20">
-                      {faq.a}
-                    </div>
-                  )}
+                  <div
+                    id={`faq-answer-${idx}`}
+                    hidden={!isOpen}
+                    className="px-5 pb-4 pt-1 text-xs text-slate-600 dark:text-slate-400 font-sans leading-relaxed border-t border-slate-200 dark:border-slate-800/60 bg-slate-50/60 dark:bg-black/20"
+                  >
+                    {faq.a}
+                  </div>
                 </div>
               );
             })}

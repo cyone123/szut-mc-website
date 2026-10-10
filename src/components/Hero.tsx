@@ -149,6 +149,10 @@ export const Hero: React.FC<HeroProps> = ({
                 <img
                   src="/szut-mc-poster.webp"
                   alt="苏州工学院 Minecraft 交流群 新学期招新海报"
+                  width={1198}
+                  height={1313}
+                  fetchPriority="high"
+                  decoding="async"
                   className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                 />
 
