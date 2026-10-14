@@ -25,12 +25,12 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="md:col-span-6 space-y-4">
             <div className="flex items-center gap-3">
               <img
-                src="/szut-mc-logo.png"
+                src="/szut-mc-logo.webp"
                 alt="SZUT Minecraft Badge"
                 className="w-10 h-10 border border-cyan-500/60 shadow-[0_0_10px_rgba(6,182,212,0.3)]"
               />
               <img
-                src="/szut-logo.png"
+                src="/szut-logo.webp"
                 alt="SZUT School Badge"
                 className="w-10 h-10 rounded-full bg-white p-0.5 border border-slate-300 dark:border-slate-600 shadow-sm"
               />

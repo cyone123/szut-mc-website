@@ -130,7 +130,7 @@ export const CommunityIntro: React.FC<CommunityIntroProps> = ({ onOpenJoin }) =>
           <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <img
-                src="/szut-logo.png"
+                src="/szut-logo.webp"
                 alt="SZUT Official Badge"
                 className="w-8 h-8 rounded-full bg-white p-0.5 border border-slate-300 dark:border-slate-600 shadow-sm"
               />
